@@ -9,7 +9,67 @@
   - TensorFlow 2.14-2.19
   - GPU support recommended
 
-## Section 2: EC2 Setup (Recommended Method)
+## Section 2: Prerequisites
+
+### Docker Hub Image Push Guide
+
+1. Docker Hub Account Setup
+```bash
+# Login to Docker Hub
+docker login
+# Enter Username and Password
+
+# Verify login status
+echo $?  # Returns 0 if successful
+```
+
+2. Prepare Image
+
+```bash
+# Check current images
+docker images
+
+# Image naming convention
+# [username]/[repository]:[tag]
+```
+
+3. Tag Image
+
+```bash
+# Basic syntax
+docker tag SOURCE_IMAGE[:TAG] [your-dockerhub-username]/SOURCE_IMAGE[:TAG]
+
+# examples
+docker tag sionna-test:latest sarahee/sionna-test:latest
+```
+
+4. Push to Docker Hub
+
+```bash
+# Basic syntax
+docker push [your-dockerhub-username]/[repository]:[tag]
+
+# examples
+docker push sarahee/sionna-test:latest
+```
+
+5. Complete Workflow Example
+
+```bash
+# Build image
+docker build -t sionna-test .
+
+# Login to Docker Hub
+docker login
+
+# Tag image for Docker Hub
+docker tag sionna-test:latest sarahee/sionna-test:latest
+
+# Push to Docker Hub
+docker push sarahee/sionna-test:latest
+```
+
+## Section 3: EC2 Deployment
 
 ### 1. AWS Configuration
 
@@ -90,7 +150,13 @@ docker build -t sionna-test .
 docker run --gpus all sionna-test
 ```
 
-## Section 3: Alternative Method - Local Development (Reference)
+## Section 4: ECS Deployment
+
+
+## Section 5: EKS Deployment
+
+
+## Section 6: Alternative Method - Local Development (Reference)
 
 ### Platform Considerations
 
@@ -136,7 +202,7 @@ docker run --gpus all sionna-test
 sudo usermod -a -G docker ec2-user
 ```
 
-## Section 4: Verification
+## Section 7: Verification
 
 ```bash
 # Expected Output
